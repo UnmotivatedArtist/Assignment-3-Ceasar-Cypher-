@@ -1,17 +1,13 @@
 secret_message = "This is most deffinitely NOT a secret message 4 (p.s. vigenere ciphers are better)"
-number = 12
+number = 69
+character_list = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
-def caesar_cipher(text: str, shift: int):
+def caesar_cipher(text: str, shift: int) -> str:
     result = ""
-
+    
     for char in text:
-        if char.islower():
-            result += chr((ord(char) + shift - 97) % 26 + 97)
-        elif char.isupper():
-            result += chr((ord(char) + shift - 65) % 26 + 65)
-        elif char.isdigit():
-            result += chr((ord(char) + shift - 48) % 10 + 48)
-
+        if char in character_list:
+            result += character_list[(character_list.index(char) + shift) % 62]
         else:
             result += char
 
@@ -19,23 +15,16 @@ def caesar_cipher(text: str, shift: int):
 
 print(caesar_cipher(secret_message, number))
 
-
-
 hidden_message = caesar_cipher(secret_message, number)
 
 
-
-def caesar_decipher(text: str, shift: int):
+def caesar_decipher(text: str, shift: int) -> str:
+    
     result = ""
-
+    
     for char in text:
-        if char.islower():
-            result += chr((ord(char) - shift - 97) % 26 + 97)
-        elif char.isupper():
-            result += chr((ord(char) - shift - 65) % 26 + 65)
-        elif char.isdigit():
-            result += chr((ord(char) - shift - 48) % 10 + 48)
-
+        if char in character_list:
+            result += character_list[(character_list.index(char) - shift) % 62]
         else:
             result += char
 
